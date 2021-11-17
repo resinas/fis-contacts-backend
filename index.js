@@ -1,35 +1,43 @@
 var express = require('express');
- var bodyParser = require('body-parser');
+var bodyParser = require('body-parser');
+var DataStore = require('nedb');
 
- var port = 3000;
- var BASE_API_PATH = "/api/v1";
+var port = 3000;
+var BASE_API_PATH = "/api/v1";
+var DB_FILE_NAME = __dirname + "/contacts.json";
 
- var contacts = [
-     {"name" : "peter", "phone": "12435"},
-     {"name" : "john", "phone": "6666"}
- ];
+console.log("Starting API server...");
 
- console.log("Starting API server...");
+var app = express();
+app.use(bodyParser.json());
 
- var app = express();
- app.use(bodyParser.json());
+var db = new DataStore({
+    filename: DB_FILE_NAME,
+    autoload: true
+});
 
- app.get("/", (req, res) => {
-     res.send("<html><body><h1>My server</h1></body></html>");
- });
+app.get("/", (req, res) => {
+    res.send("<html><body><h1>My server</h1></body></html>");
+});
 
- app.get(BASE_API_PATH + "/contacts", (req, res) => {
-     console.log(Date() + " - GET /contacts");
-     res.send(contacts);
- });
+app.get(BASE_API_PATH + "/contacts", (req, res) => {
+    console.log(Date() + " - GET /contacts");
+    res.send([]);
+});
 
- app.post(BASE_API_PATH + "/contacts", (req, res) => {
-     console.log(Date() + " - POST /contacts");
-     var contact = req.body;
-     contacts.push(contact);
-     res.sendStatus(201);
- });
+app.post(BASE_API_PATH + "/contacts", (req, res) => {
+    console.log(Date() + " - POST /contacts");
+    var contact = req.body;
+    db.insert(contact, (err) => {
+        if (err) {
+            console.log(Date() + " - " + err);
+            res.sendStatus(500);
+        } else {
+            res.sendStatus(201);
+        }
+    });
+});
 
- app.listen(port);
+app.listen(port);
 
- console.log("Server ready!");
+console.log("Server ready!");
