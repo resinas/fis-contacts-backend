@@ -23,7 +23,10 @@ spec:
           image: {{ .Values.api.image }}:{{ .Values.tag }}
           env:
             - name: MONGO_URL
-              value: $CONTACTS_MONGO_URL
+              value: 
+                secretKeyRef:
+                  name: mongodb
+                  key:  contacts_mongo_url
           ports:
             - name: http
               containerPort: 3000
