@@ -4,4 +4,4 @@ api:
   replicaCount: 1
   image: okteto.dev/api
 
-contacts_mongo_url: mongodb://localhost/test
+contactsmongourl: mongodb://localhost/test

@@ -1,3 +1,3 @@
 deploy:
  - okteto build -t okteto.dev/api:${OKTETO_GIT_COMMIT} .
- - helm upgrade --install contacts-backend chart --set tag=${OKTETO_GIT_COMMIT} --set contacts_mongo_url=${CONTACTS_MONGO_URL}
+ - helm upgrade --install contacts-backend chart --set tag=${OKTETO_GIT_COMMIT} --set contactsmongourl=${CONTACTS_MONGO_URL}
