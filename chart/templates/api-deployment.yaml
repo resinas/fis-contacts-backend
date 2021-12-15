@@ -23,7 +23,7 @@ spec:
           image: {{ .Values.api.image }}:{{ .Values.tag }}
           env:
             - name: MONGO_URL
-              value: 
+              valueFrom: 
                 secretKeyRef:
                   name: mongodb
                   key:  contacts_mongo_url
