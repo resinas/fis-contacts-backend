@@ -8,7 +8,11 @@ on:
     branches: [ main ]
 
 jobs:
-  build:
+  test:
+    uses: resinas/fis-contacts-backend/.github/workflows/tests.yml@main
+    
+  deploy:
+    needs: test
     runs-on: ubuntu-latest
 
     steps:
