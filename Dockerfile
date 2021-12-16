@@ -1,4 +1,4 @@
-FROM node:9-alpine
+FROM node:12-alpine
 
 WORKDIR /app
 
@@ -10,6 +10,7 @@ RUN npm install
 COPY index.js .
 COPY db.js .
 COPY server.js .
+COPY contacts.js .
 
 EXPOSE 3000
 
