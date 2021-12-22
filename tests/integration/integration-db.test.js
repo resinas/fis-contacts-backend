@@ -1,6 +1,6 @@
-const Contact = require('../contacts');
+const Contact = require('../../contacts');
 const mongoose = require('mongoose');
-const dbConnect = require('../db');
+const dbConnect = require('../../db');
 
 describe('Contacts DB connection', () => {
     beforeAll(() => {
